@@ -18,6 +18,22 @@ function App() {
   // Define state variables for form fields
   const [videoName, setVideoName] = useState('');
   const [timeUpdated, setTimeUpdated] = useState('');
+  const [isInputValid, setIsInputValid] = useState(false);
+
+  // Event handler for input changes
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    // Update state based on input changes
+    if (name === 'videoName') {
+      setVideoName(value);
+    } else if (name === 'timeUpdated') {
+      setTimeUpdated(value);
+    }
+
+    if(videoName != "" && timeUpdated != "")setIsInputValid(true)
+    else setIsInputValid(false)
+  };
 
   // Event handler for form submission
   const handleSubmit = (event) => {
@@ -38,20 +54,6 @@ function App() {
       const newItem = [data.createdId, videoName, timeUpdated];
       setVideoList([...videoList, newItem]);
     })
-    // Perform actions with form data (e.g., submit to a server, update state)
-    console.log('Form submitted:', { videoName, timeUpdated });
-  };
-
-  // Event handler for input changes
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-
-    // Update state based on input changes
-    if (name === 'videoName') {
-      setVideoName(value);
-    } else if (name === 'timeUpdated') {
-      setTimeUpdated(value);
-    }
   };
 
   const handleDelete = (id) => {
@@ -62,8 +64,6 @@ function App() {
       console.log("Successful: "+res);
       setVideoList(videoList.filter(rec => rec[0]!=id))
     })
-    // Perform actions with form data (e.g., submit to a server, update state)
-    console.log('Form submitted:', { videoName, timeUpdated });
   }
 
   return <>
@@ -74,7 +74,7 @@ function App() {
         <label for="timeUpdated">Time Updated:</label>
         <input type="text" name="timeUpdated" value={timeUpdated} onChange={handleInputChange} ></input>
 
-        <button type="submit">Create Video</button>
+        <button type="submit" className={isInputValid ? '' : 'disabled'} disabled={!isInputValid}>Create Video</button>
     </form>
     <br></br>
     <table>

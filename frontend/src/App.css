@@ -56,3 +56,9 @@ td {
   background-color: white;
   color: red;
 }
+
+.disabled:hover {
+  background-color: gray;
+  color: black;
+  cursor: not-allowed;
+}
