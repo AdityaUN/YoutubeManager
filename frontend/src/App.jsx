@@ -63,24 +63,27 @@ function App() {
     <form id="createVideo" onSubmit={handleSubmit}>
         <label for="videoName">Name of the Video:</label>
         <input type="text" name="videoName" value={videoName} onChange={handleInputChange} ></input>
-        <br></br>
 
         <label for="timeUpdated">Time Updated:</label>
         <input type="text" name="timeUpdated" value={timeUpdated} onChange={handleInputChange} ></input>
-        <br></br>
 
         <button type="submit">Create Video</button>
     </form>
+    <br></br>
     <table>
     <tr>
-    <th>Video Name</th><th>Time Updated</th></tr>
+    <th>Video Name</th>
+    <th>Time Updated</th>
+    <th>Actions</th>
+    </tr>
       {
         videoList.map(item => (
           <tr>
           <td>{item[1]}</td>
           <td>{item[2]}</td>
           <td>
-            <button onClick={() => handleDelete(item[0])}>Delete</button>
+            <button className="delete" onClick={() => handleDelete(item[0])}>Delete</button>
+            <button>Update</button>
           </td>
           </tr>))
       }

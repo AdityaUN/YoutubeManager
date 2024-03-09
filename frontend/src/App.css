@@ -1,3 +1,58 @@
-table, th, td {
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 2px;
+  padding: 2px;
+  background-color: purple;
+  width: 600px;
+}
+
+label {
+  font-size: 16px;
+  color: white;
+  height: 20px;
+}
+
+input {
+  height: 20px;
+}
+
+button {
+  background-color: green;
+  text-align: center;
+  font-size: 16px;
+  color: lightgreen;
+  border: none;
+  width: 150px;
+  border-radius: 10%;
+}
+
+button:hover {
+  background-color: lightgreen;
+  color: green;
+}
+
+table {
+  width: 600px;
   border: 1px solid;
+}
+
+th {
+  background-color: purple;
+  color: white;
+}
+
+td {
+  border: solid 1px;
+  background-color: lightpink;
+}
+
+.delete {
+  background-color: red;
+  color: white;
+}
+
+.delete:hover {
+  background-color: white;
+  color: red;
 }
