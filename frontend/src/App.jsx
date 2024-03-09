@@ -27,8 +27,15 @@ function App() {
       method: 'POST',
     })
     .then(res => {
-      console.log("Successful: "+res);
-      const newItem = [0, videoName, timeUpdated];
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
+      // response.json() returns a Promise
+      return res.json();
+    })
+    .then(data => {
+      console.log("Record created with id: " + data.createdId);
+      const newItem = [data.createdId, videoName, timeUpdated];
       setVideoList([...videoList, newItem]);
     })
     // Perform actions with form data (e.g., submit to a server, update state)

@@ -30,11 +30,17 @@ def create_video():
     cur = con.cursor()
     
     cur.execute("INSERT INTO videos (name, time) VALUES (?, ?)", (name, time))
+    created_id = cur.lastrowid
     con.commit()
 
     con.close()
 
-    return jsonify({'message': f'Video "{name}" created successfully (time: {time})'}), 201
+    data = {
+        "message": f'Video "{name}" created successfully time: {time}',
+        "createdId": created_id
+    }
+
+    return jsonify(data), 201
 
 @app.route("/api/delete-video/", methods=["DELETE"])
 def delete_video():
@@ -44,7 +50,7 @@ def delete_video():
     con = sqlite3.connect("tutorial.db")
     cur = con.cursor()
 
-    cur.execute("DELETE FROM videos WHERE id = ?", id)
+    cur.execute("DELETE FROM videos WHERE id = ?", (id,))
     con.commit()
 
     con.close()
