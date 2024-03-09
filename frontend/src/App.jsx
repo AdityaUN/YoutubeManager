@@ -47,6 +47,18 @@ function App() {
     }
   };
 
+  const handleDelete = (id) => {
+    fetch('/api/delete-video/?id=' + id, {
+      method: 'DELETE',
+    })
+    .then(res => {
+      console.log("Successful: "+res);
+      setVideoList(videoList.filter(rec => rec[0]!=id))
+    })
+    // Perform actions with form data (e.g., submit to a server, update state)
+    console.log('Form submitted:', { videoName, timeUpdated });
+  }
+
   return <>
     <form id="createVideo" onSubmit={handleSubmit}>
         <label for="videoName">Name of the Video:</label>
@@ -63,7 +75,14 @@ function App() {
     <tr>
     <th>Video Name</th><th>Time Updated</th></tr>
       {
-        videoList.map(item => (<tr><td>{item[1]}</td><td>{item[2]}</td></tr>))
+        videoList.map(item => (
+          <tr>
+          <td>{item[1]}</td>
+          <td>{item[2]}</td>
+          <td>
+            <button onClick={() => handleDelete(item[0])}>Delete</button>
+          </td>
+          </tr>))
       }
     </table>
   </>

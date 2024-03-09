@@ -36,6 +36,20 @@ def create_video():
 
     return jsonify({'message': f'Video "{name}" created successfully (time: {time})'}), 201
 
+@app.route("/api/delete-video/", methods=["DELETE"])
+def delete_video():
+    # Extract data from request
+    id = request.args.get('id')
+
+    con = sqlite3.connect("tutorial.db")
+    cur = con.cursor()
+
+    cur.execute("DELETE FROM videos WHERE id = ?", id)
+    con.commit()
+
+    con.close()
+
+    return jsonify({'message': f'Video with "{id}" deleted successfully'}), 201
 
 if __name__ == "__main__":
     app.run(debug=True)
